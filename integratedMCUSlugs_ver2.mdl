@@ -6,7 +6,7 @@ Model {
     NumRootInports	    0
     NumRootOutports	    0
     ParameterArgumentNames  ""
-    ComputedModelVersion    "1.18"
+    ComputedModelVersion    "1.23"
     NumModelReferences	    0
     NumTestPointedSignals   0
   }
@@ -39,9 +39,9 @@ Model {
   ModifiedByFormat	  "%<Auto>"
   LastModifiedBy	  "Marcello G"
   ModifiedDateFormat	  "%<Auto>"
-  LastModifiedDate	  "Fri Apr 22 11:02:43 2016"
-  RTWModifiedTimeStamp	  382884598
-  ModelVersionFormat	  "1.%<AutoIncrement:18>"
+  LastModifiedDate	  "Mon Apr 25 19:21:02 2016"
+  RTWModifiedTimeStamp	  383488646
+  ModelVersionFormat	  "1.%<AutoIncrement:23>"
   ConfigurationManager	  "None"
   SampleTimeColors	  off
   SampleTimeAnnotations	  off
@@ -64,8 +64,8 @@ Model {
   BlockDescriptionStringDataTip	off
   ToolBar		  on
   StatusBar		  on
-  BrowserShowLibraryLinks off
-  BrowserLookUnderMasks	  on
+  BrowserShowLibraryLinks on
+  BrowserLookUnderMasks	  off
   SimulationMode	  "normal"
   LinearizationMsg	  "none"
   Profile		  off
@@ -79,6 +79,7 @@ Model {
     $ObjectID		    2
     $ClassName		    "Simulink.SimulationData.ModelLoggingInfo"
     model_		    "intgratedMCUSlugs_ver2"
+    signals_		    []
     overrideMode_	    [0.0]
     Array {
       Type		      "Cell"
@@ -342,9 +343,19 @@ Model {
 	  Version		  "1.11.1"
 	  Array {
 	    Type		    "Cell"
-	    Dimension		    2
+	    Dimension		    12
 	    Cell		    "ProdHWDeviceType"
 	    Cell		    "ProdEqTarget"
+	    Cell		    "ProdBitPerChar"
+	    Cell		    "ProdBitPerShort"
+	    Cell		    "ProdBitPerInt"
+	    Cell		    "ProdBitPerLong"
+	    Cell		    "ProdWordSize"
+	    Cell		    "ProdShiftRightIntArith"
+	    Cell		    "ProdEndianess"
+	    Cell		    "ProdIntDivRoundTo"
+	    Cell		    "ProdLargestAtomicInteger"
+	    Cell		    "ProdLargestAtomicFloat"
 	    PropName		    "DisabledProps"
 	  }
 	  ProdBitPerChar	  8
@@ -354,13 +365,13 @@ Model {
 	  ProdBitPerFloat	  32
 	  ProdBitPerDouble	  64
 	  ProdBitPerPointer	  16
-	  ProdLargestAtomicInteger "Char"
+	  ProdLargestAtomicInteger "Integer"
 	  ProdLargestAtomicFloat  "None"
-	  ProdIntDivRoundTo	  "Undefined"
+	  ProdIntDivRoundTo	  "Zero"
 	  ProdEndianess		  "LittleEndian"
 	  ProdWordSize		  16
 	  ProdShiftRightIntArith  on
-	  ProdHWDeviceType	  "16-bit Generic"
+	  ProdHWDeviceType	  "Generic->Custom"
 	  TargetBitPerChar	  8
 	  TargetBitPerShort	  16
 	  TargetBitPerInt	  32
@@ -420,13 +431,13 @@ Model {
 	    Cell		    "TargetLang"
 	    PropName		    "DisabledProps"
 	  }
-	  SystemTargetFile	  "dspic.tlc"
+	  SystemTargetFile	  "MCHP_dsPIC_stf.tlc"
 	  GenCodeOnly		  off
-	  MakeCommand		  "make_CreateMPLAB"
+	  MakeCommand		  "make_rtw"
 	  GenerateMakefile	  on
-	  TemplateMakefile	  "dspic_pic30_gcc.tmf"
+	  TemplateMakefile	  "MCHP_dsPIC.tmf"
 	  PostCodeGenCommand	  "dsPIC_Compile()"
-	  Description		  "Embedded Target for Microchip dsPIC (real-time)"
+	  Description		  "Microchip Embedded Target PIC24 dsPIC30 dsPIC33 (real-time)"
 	  GenerateReport	  off
 	  SaveLog		  off
 	  RTWVerbose		  on
@@ -437,10 +448,14 @@ Model {
 	  TLCAssert		  off
 	  ProcessScriptMode	  "Default"
 	  ConfigurationMode	  "Optimized"
-	  ProcessScript		  "dspic_make_rtw_hook"
+	  ProcessScript		  "MCHP_dsPIC_stf_make_rtw_hook"
 	  ConfigAtBuild		  off
 	  RTWUseLocalCustomCode	  off
 	  RTWUseSimCustomCode	  off
+	  CustomInclude		  "clib"
+	  CustomSource		  "adisCube.c\nadisCube16405.c\napUtils.c\nbrk.c\ncircBuffer.c\nconversions.c\nDEE.c\neepLoader.c\nFC"
+	  "BEX1000.c\ngps.c\ngpsPort.c\ngpsUblox.c\nhil.c\ninterProcCommMaster.c\ninterProcCommSlave.c\nmavlinkCommsControlMcu"
+	  ".c\nmavlinkControlMcu.c\nmavlinkSensorMcu.c\nnavSupport.c\nupdateControlMcuState.c\nupdateSensorMcuState.c"
 	  IncludeHyperlinkInReport off
 	  LaunchReport		  off
 	  TargetLang		  "C"
@@ -504,8 +519,9 @@ Model {
 	      Version		      "1.11.1"
 	      Array {
 		Type			"Cell"
-		Dimension		6
+		Dimension		7
 		Cell			"GenerateSampleERTMain"
+		Cell			"SuppressErrorStatus"
 		Cell			"MatFileLogging"
 		Cell			"SupportNonInlinedSFcns"
 		Cell			"UtilityFuncGeneration"
@@ -514,7 +530,7 @@ Model {
 		PropName		"DisabledProps"
 	      }
 	      TargetFcnLib	      "ansi_tfl_table_tmw.mat"
-	      TargetLibSuffix	      ""
+	      TargetLibSuffix	      "_lib.a"
 	      TargetPreCompLibLocation ""
 	      TargetFunctionLibrary   "ANSI_C"
 	      UtilityFuncGeneration   "Auto"
@@ -534,7 +550,7 @@ Model {
 	      GeneratePreprocessorConditionals "Use local settings"
 	      CombineOutputUpdateFcns on
 	      CombineSignalStateStructs	off
-	      SuppressErrorStatus     on
+	      SuppressErrorStatus     off
 	      ERTFirstTimeCompliant   off
 	      IncludeFileDelimiter    "Auto"
 	      ERTCustomFileBanners    on
@@ -546,7 +562,7 @@ Model {
 	      SupportComplex	      on
 	      PurelyIntegerCode	      off
 	      SupportContinuousTime   off
-	      SupportNonInlinedSFcns  off
+	      SupportNonInlinedSFcns  on
 	      SupportVariableSizeSignals off
 	      EnableShiftOperators    on
 	      ParenthesesLevel	      "Nominal"
@@ -554,7 +570,7 @@ Model {
 	      ModelStepFunctionPrototypeControlCompliant off
 	      CPPClassGenCompliant    off
 	      AutosarCompliant	      off
-	      SystemTargetFile	      "dspic.tlc"
+	      SystemTargetFile	      "MCHP_dsPIC_stf.tlc"
 	      DialogCategory	      0
 	      Array {
 		Type			"Handle"
@@ -565,20 +581,24 @@ Model {
 		  Version		  "1.11.1"
 		  Array {
 		    Type		    "Cell"
-		    Dimension		    9
+		    Dimension		    13
 		    Cell		    "GenerateSampleERTMain"
-		    Cell		    "GenerateErtSFunction"
+		    Cell		    "ERTCustomFileTemplate"
+		    Cell		    "SuppressErrorStatus"
 		    Cell		    "MatFileLogging"
 		    Cell		    "GRTInterface"
-		    Cell		    "ERTCustomFileTemplate"
 		    Cell		    "SupportNonInlinedSFcns"
 		    Cell		    "UtilityFuncGeneration"
 		    Cell		    "IncludeMdlTerminateFcn"
+		    Cell		    "ERTDataHdrFileTemplate"
+		    Cell		    "ERTDataSrcFileTemplate"
+		    Cell		    "ERTHdrFileBannerTemplate"
+		    Cell		    "ERTSrcFileBannerTemplate"
 		    Cell		    "ModelReferenceCompliant"
 		    PropName		    "DisabledProps"
 		  }
 		  TargetFcnLib		  "ansi_tfl_table_tmw.mat"
-		  TargetLibSuffix	  ""
+		  TargetLibSuffix	  "_lib.a"
 		  TargetPreCompLibLocation ""
 		  TargetFunctionLibrary	  "ANSI_C"
 		  UtilityFuncGeneration	  "Auto"
@@ -598,7 +618,7 @@ Model {
 		  GeneratePreprocessorConditionals "Use local settings"
 		  CombineOutputUpdateFcns on
 		  CombineSignalStateStructs off
-		  SuppressErrorStatus	  on
+		  SuppressErrorStatus	  off
 		  ERTFirstTimeCompliant	  off
 		  IncludeFileDelimiter	  "Auto"
 		  ERTCustomFileBanners	  on
@@ -610,7 +630,7 @@ Model {
 		  SupportComplex	  on
 		  PurelyIntegerCode	  off
 		  SupportContinuousTime	  off
-		  SupportNonInlinedSFcns  off
+		  SupportNonInlinedSFcns  on
 		  SupportVariableSizeSignals off
 		  EnableShiftOperators	  on
 		  ParenthesesLevel	  "Nominal"
@@ -628,7 +648,7 @@ Model {
 		  ExtModeStaticAlloc	  off
 		  ExtModeStaticAllocSize  1000000
 		  ExtModeTesting	  off
-		  ExtModeMexFile	  "ext_serial_win32_comm"
+		  ExtModeMexFile	  "noextcomm"
 		  ExtModeIntrfLevel	  "Level1"
 		  InlinedParameterPlacement "NonHierarchical"
 		  TargetOS		  "BareBoardExample"
@@ -639,11 +659,11 @@ Model {
 		  RTWCAPIParams		  off
 		  RTWCAPIStates		  off
 		  RTWCAPIRootIO		  off
-		  ERTSrcFileBannerTemplate "dsPIC_code_template.cgt"
-		  ERTHdrFileBannerTemplate "dsPIC_code_template.cgt"
-		  ERTDataSrcFileTemplate  "dsPIC_code_template.cgt"
-		  ERTDataHdrFileTemplate  "dsPIC_code_template.cgt"
-		  ERTCustomFileTemplate	  "dsPIC_main.tlc"
+		  ERTSrcFileBannerTemplate "MCHP_dsPIC_code_template.cgt"
+		  ERTHdrFileBannerTemplate "MCHP_dsPIC_code_template.cgt"
+		  ERTDataSrcFileTemplate  "MCHP_dsPIC_code_template.cgt"
+		  ERTDataHdrFileTemplate  "MCHP_dsPIC_code_template.cgt"
+		  ERTCustomFileTemplate	  "MCHP_main.tlc"
 		  CoverageDialogOpen	  "off"
 		  EnableDataOwnership	  off
 		  SignalDisplayLevel	  10
@@ -693,45 +713,69 @@ Model {
 	      }
 	      CustomProperty {
 		DataType		"string"
-		Name			"GMAKE_PLACE"
-		Value			"D:\\MATLAB~1\\bin\\win64\\gmake"
+		Name			"PIC_REF"
+		Value			"33EP512MU810"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"HOST_PLATFORM"
+		Value			"PC"
 	      }
 	      CustomProperty {
 		DataType		"string"
 		Name			"OPTIM_GCC"
-		Value			"-mcpu=33fJ256MC710 -O3 -fschedule-insns -fschedule-insns2"
+		Value			" -g -O3 -fschedule-insns -fschedule-insns2"
 	      }
 	      CustomProperty {
 		DataType		"string"
 		Name			"LDFLAGS"
-		Value			" -Xlinker -t -Xlinker --report-mem -Xlinker -Map=../untitled.map -Xlinker --heap=0 -Xlinker -cref"
+		Value			"-Xlinker -t -Xlinker --report-mem -Xlinker -Map=info.map -Xlinker --heap=0 -Xlinker -cref"
+	      }
+	      CustomProperty {
+		DataType		"RTWOptions_EnumType_C__Program Files (x86)_Microchip_MatlabTools_mchp_MCHP_dsPIC_stf_1OMF"
+		EnumStrPairs {
+		  Value			  0
+		  String		  "elf"
+		  Value			  1
+		  String		  "coff"
+		}
+		Name			"OMF"
+		Value			"elf"
+	      }
+	      CustomProperty {
+		DataType		"slbool"
+		Name			"AssemblyListing"
+		Value			on
 	      }
 	      CustomProperty {
 		DataType		"string"
-		Name			"LDPICTYPE"
-		Value			" -Xlinker --script=C:\\PROGRA~2\\MICROC~1\\mplabc30\\v3.31\\support\\dsPIC33F\\gld\\p33fJ256MC710.gld"
+		Name			"GCCPATH"
+		Value			"C:\\PROGRA~2\\MICROC~1\\mplabc30\\v3.31\\bin"
 	      }
 	      CustomProperty {
 		DataType		"string"
-		Name			"LDLIBPIC"
-		Value			" C:\\PROGRA~2\\MICROC~1\\mplabc30\\v3.31\\lib\\libpic30-coff.a C:\\PROGRA~2\\MICROC~1\\mplabc30\\v3.31\\lib"
-		"\\dsPIC33F\\libp33fJ256MC710-coff.a C:\\PROGRA~2\\MICROC~1\\mplabc30\\v3.31\\lib\\libc-coff.a C:\\PROGRA~2\\MICROC~1"
-		"\\mplabc30\\v3.31\\lib\\libm-coff.a"
+		Name			"LINKER_SCRIPT"
+		Value			"C:\\PROGRA~2\\MICROC~1\\mplabc30\\v3.31\\support\\dsPIC33E\\gld\\P33EP5~3.GLD"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"PIC_LIB"
+		Value			"C:\\PROGRA~2\\MICROC~1\\mplabc30\\v3.31\\lib\\dsPIC33E\\libp33EP512MU810-elf.a C:\\PROGRA~2\\MICROC~1\\mpla"
+		"bc30\\v3.31\\lib\\libpic30-elf.a C:\\PROGRA~2\\MICROC~1\\mplabc30\\v3.31\\lib\\libm-elf.a C:\\PROGRA~2\\MICROC~1\\mp"
+		"labc30\\v3.31\\lib\\libc-elf.a C:\\PROGRA~2\\MICROC~1\\mplabc30\\v3.31\\lib\\libq-elf.a C:\\PROGRA~2\\MICROC~1\\mpla"
+		"bc30\\v3.31\\lib\\libq-dsp-elf.a"
 	      }
 	      CustomProperty {
 		DataType		"string"
 		Name			"PIC_INCLUDES"
-		Value			" -I C:\\PROGRA~2\\MICROC~1\\mplabc30\\v3.31\\include"
-	      }
-	      CustomProperty {
-		DataType		"string"
-		Name			"PIC_REF"
-		Value			"33fJ256MC710"
+		Value			"-IC:\\PROGRA~2\\MICROC~1\\mplabc30\\v3.31\\include -IC:\\PROGRA~2\\MICROC~1\\mplabc30\\v3.31\\support\\dsPI"
+		"C33E\\h -IC:\\PROGRA~2\\MICROC~1\\mplabc30\\v3.31\\support\\generic\\h -IC:\\PROGRA~2\\MICROC~1\\mplabc30\\v3.31\\su"
+		"pport\\PERIPH~2"
 	      }
 	      CustomProperty {
 		DataType		"string"
 		Name			"GCC1"
-		Value			"pic30-gcc"
+		Value			"pic30-gcc.exe"
 	      }
 	      CustomProperty {
 		DataType		"string"
@@ -742,6 +786,31 @@ Model {
 		DataType		"string"
 		Name			"BIN2HEX"
 		Value			"pic30-bin2hex"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"OBJDUMP"
+		Value			"pic30-objdump -omf=elf"
+	      }
+	      CustomProperty {
+		DataType		"slbool"
+		Name			"MCHP_AUTO_FLASH"
+		Value			off
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"TIMER_PRESCALER"
+		Value			"[1 -1 -1 -1 -1 -1 -1 -1 -1]"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"TIMER_PERIOD"
+		Value			"[39999]"
+	      }
+	      CustomProperty {
+		DataType		"string"
+		Name			"TIMER_START"
+		Value			"[3]"
 	      }
 	    }
 	    PropName		    "Components"
@@ -763,9 +832,8 @@ Model {
 	PropName		"Components"
       }
       Name		      "Configuration"
-      ExtraOptions	      "-aGenerateTraceInfo=0 -aIgnoreTestpoints=0 "
-      CurrentDlgPage	      "Diagnostics/Data Validity"
-      ConfigPrmDlgPosition     [ 504, 163, 1416, 871 ] 
+      CurrentDlgPage	      "Code Generation/Custom Code"
+      ConfigPrmDlgPosition     [ 472, 39, 1448, 903 ] 
     }
     PropName		    "ConfigurationSets"
   }
@@ -1212,7 +1280,7 @@ Model {
   }
   System {
     Name		    "intgratedMCUSlugs_ver2"
-    Location		    [214, 75, 1901, 1002]
+    Location		    [460, 83, 1386, 1001]
     Open		    on
     ModelBrowserVisibility  on
     ModelBrowserWidth	    212
@@ -1226,44 +1294,7 @@ Model {
     ShowPageBoundaries	    off
     ZoomFactor		    "100"
     ReportName		    "simulink-default.rpt"
-    SIDHighWatermark	    "1935"
-    Block {
-      BlockType		      Reference
-      Name		      "C Function Call"
-      SID		      "1"
-      Tag		      "dsPIC_dsPIC_CFunctionCall"
-      Ports		      []
-      Position		      [1935, 53, 2065, 107]
-      BackgroundColor	      "orange"
-      LibraryVersion	      "3.84"
-      SourceBlock	      "dsPICdrivers/OTHERS/C Function Call"
-      SourceType	      "C Function Call"
-      FctUpdate		      "None"
-      fctName		      "'Function_Update'"
-      INPUT_SIZE	      "1"
-      INPUT1		      "--"
-      INPUT2		      "--"
-      INPUT3		      "--"
-      OUTPUT_SIZE	      "1"
-      OUTPUT1		      "--"
-      SampleTime	      "-1"
-      InputType		      "[]"
-      OutputType	      "[]"
-      FctDeclaration	      "extern void Function_Update();"
-      FctCall		      "Function_Update();"
-      OrderingInOutPopup      "None"
-      FctStart		      "Start Function (Call once and only once)"
-      FctStart_Name	      "'controlMCUInit'"
-      FctStart_Declaration    "inline extern void controlMCUInit();"
-      FctStart_Call	      "controlMCUInit();"
-      FctInit		      "None"
-      FctInit_Name	      "Init_Reset"
-      FctInit_Declaration     "inline extern void Init_Reset();"
-      FctInit_Call	      "Init_Reset();"
-      PinDigitalInput	      "[]"
-      PinDigitalOutput	      "[]"
-      AnalogueInput	      "[]"
-    }
+    SIDHighWatermark	    "1948"
     Block {
       BlockType		      Reference
       Name		      "Configure Model \nfor dsPIC"
@@ -1345,7 +1376,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Data \nSources"
-	Location		[455, 563, 2155, 1507]
+	Location		[-30, 480, 1670, 1424]
 	Open			off
 	ModelBrowserVisibility	on
 	ModelBrowserWidth	200
@@ -1360,51 +1391,40 @@ Model {
 	ZoomFactor		"100"
 	Block {
 	  BlockType		  Reference
-	  Name			  "Data from GS\n[mavlinkCommsControlMcu.c]"
-	  SID			  "27"
-	  Tag			  "dsPIC_dsPIC_CFunctionCall"
+	  Name			  "C Function Call"
+	  SID			  "1948"
 	  Ports			  [0, 1]
-	  Position		  [30, 177, 135, 213]
+	  Position		  [60, 167, 220, 223]
 	  BackgroundColor	  "orange"
-	  LibraryVersion	  "3.84"
-	  SourceBlock		  "dsPICdrivers/OTHERS/C Function Call"
+	  LibraryVersion	  "3.10"
+	  SourceBlock		  "MCHP_Blockset/User Functions/C Function Call"
 	  SourceType		  "C Function Call"
-	  FctUpdate		  "Output Function"
-	  fctName		  "'gsRead'"
-	  INPUT_SIZE		  "1"
-	  INPUT1		  "--"
-	  INPUT2		  "--"
-	  INPUT3		  "--"
-	  OUTPUT_SIZE		  "202"
-	  OUTPUT1		  "uint8"
+	  ListFunctions1	  "Custom Function"
+	  Function1		  "extern void gsRead(uint8_T* y1);"
+	  Function1Type		  "when block is updated (default)"
+	  AddHeaderDeclaration	  on
+	  Fct1BlockOut		  "y1"
+	  S_INPUT		  "[]"
+	  S_OUTPUT		  "[3]"
+	  S_INPUT_Size		  "[]"
+	  S_OUTPUT_Size		  "[-1]"
+	  ORDERING		  "None"
 	  SampleTime		  ".01"
-	  InputType		  "[ ]"
-	  OutputType		  "[ 2 ]"
-	  FctDeclaration	  "extern void gsRead(uint8_T* y1);"
-	  FctCall		  "gsRead(*%y1);"
-	  OrderingInOutPopup	  "None"
-	  FctStart		  "None"
-	  FctStart_Name		  "Init_onlyOnce"
-	  FctStart_Declaration	  "inline extern void Init_onlyOnce();"
-	  FctStart_Call		  "Init_onlyOnce();"
-	  FctInit		  "None"
-	  FctInit_Name		  "Init_Reset"
-	  FctInit_Declaration	  "inline extern void Init_Reset();"
-	  FctInit_Call		  "Init_Reset();"
+	  MCHP_MASTERLINK	  "intgratedMCUSlugs_ver2/Microchip Master"
 	  PinDigitalInput	  "[]"
-	  PinDigitalOutput	  "[]"
-	  AnalogueInput		  "[]"
+	  PinDigitalOutput	  "[]   "
+	  PinAnalogInput	  "[]"
 	}
 	Block {
 	  BlockType		  Outport
 	  Name			  "GS"
 	  SID			  "30"
-	  Position		  [200, 188, 230, 202]
+	  Position		  [310, 188, 340, 202]
 	  BackgroundColor	  "yellow"
 	  IconDisplay		  "Port number"
 	}
 	Line {
-	  SrcBlock		  "Data from GS\n[mavlinkCommsControlMcu.c]"
+	  SrcBlock		  "C Function Call"
 	  SrcPort		  1
 	  DstBlock		  "GS"
 	  DstPort		  1
@@ -2135,40 +2155,53 @@ Model {
     }
     Block {
       BlockType		      Reference
-      Name		      "Initialize Sensor MCU\n[interProcCommMaster.c]"
-      SID		      "1726"
-      Tag		      "dsPIC_dsPIC_CFunctionCall"
+      Name		      "Initialize Control MCU"
+      SID		      "1943"
       Ports		      []
-      Position		      [1045, 62, 1150, 98]
-      BackgroundColor	      "orange"
-      LibraryVersion	      "3.84"
-      SourceBlock	      "dsPICdrivers/OTHERS/C Function Call"
+      Position		      [1920, 57, 2045, 111]
+      BackgroundColor	      "gray"
+      LibraryVersion	      "3.10"
+      SourceBlock	      "MCHP_Blockset/User Functions/C Function Call"
       SourceType	      "C Function Call"
-      FctUpdate		      "None"
-      fctName		      "'Function_Update'"
-      INPUT_SIZE	      "1"
-      INPUT1		      "--"
-      INPUT2		      "--"
-      INPUT3		      "--"
-      OUTPUT_SIZE	      "1"
-      OUTPUT1		      "--"
-      SampleTime	      "inf"
-      InputType		      "[]"
-      OutputType	      "[]"
-      FctDeclaration	      "extern void Function_Update();"
-      FctCall		      "Function_Update();"
-      OrderingInOutPopup      "None"
-      FctStart		      "Start Function (Call once and only once)"
-      FctStart_Name	      "'sensorMCUInit'"
-      FctStart_Declaration    "inline extern void sensorMCUInit();"
-      FctStart_Call	      "sensorMCUInit();"
-      FctInit		      "None"
-      FctInit_Name	      "Init_Reset"
-      FctInit_Declaration     "inline extern void Init_Reset();"
-      FctInit_Call	      "Init_Reset();"
+      ListFunctions1	      "Custom Function"
+      Function1		      "void controlMCUInit();"
+      Function1Type	      "only once at power-up time"
+      AddHeaderDeclaration    on
+      S_INPUT		      "[]"
+      S_OUTPUT		      "[]"
+      S_INPUT_Size	      "[]"
+      S_OUTPUT_Size	      "[]"
+      ORDERING		      "None"
+      SampleTime	      "-1"
+      MCHP_MASTERLINK	      "intgratedMCUSlugs_ver2/Microchip Master"
       PinDigitalInput	      "[]"
-      PinDigitalOutput	      "[]"
-      AnalogueInput	      "[]"
+      PinDigitalOutput	      "[]   "
+      PinAnalogInput	      "[]"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Initialize Sensor MCU\n[interProcCommMaster.c]"
+      SID		      "1939"
+      Ports		      []
+      Position		      [1125, 57, 1250, 111]
+      BackgroundColor	      "orange"
+      LibraryVersion	      "3.10"
+      SourceBlock	      "MCHP_Blockset/User Functions/C Function Call"
+      SourceType	      "C Function Call"
+      ListFunctions1	      "Custom Function"
+      Function1		      "void sensorMCUInit();"
+      Function1Type	      "only once at power-up time"
+      AddHeaderDeclaration    on
+      S_INPUT		      "[]"
+      S_OUTPUT		      "[]"
+      S_INPUT_Size	      "[]"
+      S_OUTPUT_Size	      "[]"
+      ORDERING		      "None"
+      SampleTime	      "inf"
+      MCHP_MASTERLINK	      "intgratedMCUSlugs_ver2/Microchip Master"
+      PinDigitalInput	      "[]"
+      PinDigitalOutput	      "[]   "
+      PinAnalogInput	      "[]"
     }
     Block {
       BlockType		      SubSystem
@@ -8348,48 +8381,218 @@ Model {
     }
     Block {
       BlockType		      Reference
-      Name		      "Master"
-      SID		      "343"
-      Tag		      "dsPIC_MASTER"
+      Name		      "Microchip Master"
+      SID		      "1938"
       Ports		      []
-      Position		      [1415, 57, 1524, 108]
-      BackgroundColor	      "lightBlue"
+      Position		      [1450, 52, 1550, 108]
+      BackgroundColor	      "gray"
       Priority		      "1"
-      LibraryVersion	      "3.84"
-      SourceBlock	      "dsPICdrivers/Master"
-      SourceType	      "Master"
-      TimeStepType	      "Timer1"
-      picType		      "33fJ256MC710"
-      fcy		      "40000000"
-      Quartz_33f	      "12e6 "
-      PLLActive_33f	      on
-      fcyDesired_33f	      "40000000"
-      tmr1		      "[1  39999  0]"
-      tmr1Info		      "Time Step : 0.001  ;   Error : 0%  PR1=39999"
-      tmr2345		      "[8  0  0  0  0  0  0  0]"
-      tmr2345cfg	      "[-1 -1 -1 -1 -1 -1 -1 -1]"
-      IOautoConf	      on
-      typePort		      "[ 0   0   0   0   0   0   0   0   0   0   0   0   0   0   9   0   0   0   0   0   0   0  10   0"
-      "   8   8   8   8   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   9   0"
-      "   0   0   0   0   6   6   6   6   6   0   6   6  11   0  11   0  11   0  11   0   0  10   0   0   0   0   0   0"
-      "   0   0   4   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0   0  10  10   0   0"
-      "   0   0   0   0 ]"
-      TRIS		      "[ 65535  65471  65535  65535  65023  65535  64767 ]"
-      ADPCFG		      "2097216"
-      MasterBusyPort	      "None"
-      MasterOverloadPort      "None"
-      FOSC		      "External Clock"
-      ClockSwitchMonitor      "Both disabled"
-      TempProtection_33f      "TEMP_ON"
-      FPBOR		      "<empty>"
-      PWRT		      "disable"
-      MCLR		      "<empty>"
-      ICD		      "ICS_PGD2"
-      JTAGEN		      "JTAGEN_OFF"
-      PowerSave		      off
-      OverrideFcy	      off
-      NewFcy		      "1e6"
-      PR2345		      "[65535  65535  65535  65535  65535  65535  65535  65535]"
+      LibraryVersion	      "3.10"
+      SourceBlock	      "MCHP_Blockset/System Configuration/Microchip Master"
+      SourceType	      ""
+      PICREF		      "33EP512MU810"
+      TIMESTEP_REF	      "Timer  ( 0.001s )"
+      BUSYFLAG		      "Dynamic Options"
+      BUSYFLAG_TXT	      "None"
+      PWRTEN		      "PWRT enabled"
+      BOREN		      "Disable"
+      BODENV		      "2.7V"
+      BORV		      "Brown-out Reset set at 2.0V"
+      FPWRT		      "64ms"
+      DSBOREN		      "Deep Sleep BOR enabled in Deep Sleep"
+      DSLPBOR		      "Deep Sleep BOR enabled in Deep Sleep"
+      MCLRE		      "Enabled"
+      PMDL1WAY		      "Not used"
+      RSTPRI		      "Device will obtain reset instruction from Primary flash"
+      TEMP		      "Not used"
+      SOSCSRC		      "Analog Mode for use with crystal"
+      SOSCSEL		      "Secondary oscillator configured for high-power operation"
+      IOL1WAY		      "Allow only one reconfiguration"
+      ALTVREF		      "Voltage reference input; ADC =RA9/RA10 Comparator =RA9;RA10"
+      DISUVREG		      "Regulator is disabled"
+      DSSWEN		      "Deep Sleep is controlled by the register bit DSEN"
+      LPCFG		      "Disabled - regardless of RETEN"
+      RTCBAT		      "RTC operation is continued through VBAT"
+      VBTBOR		      "VBAT BOR is enabled"
+      WUTSEL		      "Default regulator start-up time used"
+      POWERSAVE		      off
+      FNOSC		      "Primary oscillator (XT; HS; EC)"
+      FPR		      "ECIO w/ PLL 16x"
+      FOSFPR		      "HS3 w/PLL 16x"
+      FOS		      "Internal Fast RC"
+      FRANGE		      "High Range"
+      OSCILLATOR_SELECT	      "External Clock"
+      OSCILLATOR_SELECT_spd   "External Clock"
+      QUARTZ		      "12e+006"
+      QUARTZ_spd	      "12e+006"
+      ACTIV_PLL		      on
+      ACTIV_PLL_spd	      "on"
+      MIPS_DESIRED	      "40000000"
+      MIPS_DESIRED_spd	      "40000000"
+      FPLLMUL		      "Not used"
+      FPLLIDIV		      "Not used"
+      POSCFREQ		      "Primary oscillator/external clock input frequency greater than 8MHz"
+      POSCMD		      "EC (External Clock) Mode"
+      POSCMOD		      "Primary Oscillator Disabled"
+      MIPS		      "40 * 1e6"
+      FPLLODIV		      "Not used"
+      PLLKEN		      "Clock switch to PLL source will wait until the PLL lock signal is valid."
+      FCKSM		      "Both Clock Switching and Fail-safe Clock Monitor are disabled"
+      FCKSMEN		      "Sw Disabled; Mon Disabled"
+      IESO		      "Start up with FRC; then switch"
+      DSWDTPS		      "1:2;147;483;648 (25.7 Days)"
+      FWDTEN		      "Disable"
+      FWDTWINSZ		      "Not used"
+      FWPSA		      "1:512"
+      FWPSA0		      "1:128"
+      FWPSB		      "1:16"
+      WDT		      "Disable"
+      WDTPOST		      "1:32768"
+      WDTPRE		      "1:128"
+      WDTPS		      "1:32768"
+      WINDIS		      "Watchdog Timer in Non-Window mode"
+      WWDTEN		      "Non-Window mode"
+      DSWDTEN		      "DSWDT enabled"
+      DSWDTOSC		      "DSWDT uses Low Power RC Oscillator (LPRC)"
+      FPBDIV		      "Not used"
+      FSOSCEN		      "Not used"
+      LPRCSEL		      "High Power; High Accuracy Mode"
+      OSCIOFCN		      "OSCO/CLKO/RC15 functions as CLKO (FOSC/2)"
+      OSCIOFNC		      "OSC2 is clock output"
+      LVRCFG		      "Low Voltage regulator is not available"
+      PLL_96MHZ		      "Enabled"
+      PLL96MHZ		      "96 MHz PLL Startup is enabled automatically on start-up"
+      PLLDIV		      "PLL is disabled"
+      WDTCLK		      "WDT uses LPRC"
+      WDTCMX		      "WDT clock source is determined by the WDTCLK Configuration bits"
+      WDTWIN		      "WDT Window is 25% of WDT period"
+      APL		      "Aux Flash Code protect is disabled"
+      APLK		      "Aux Flash Write Protection or Code Protection is Enabled"
+      AWRP		      "Auxiliary program memory is not write-protected"
+      BSS		      "No boot program Flash segment"
+      BWP		      "Not used"
+      BWRP		      "Boot Segment may be written"
+      CP		      "Not used"
+      EBS		      "No Boot EEPROM"
+      ESS		      "No Segment Data EEPROM"
+      GCP		      "Disable"
+      GSS		      "General Segment Code protect is disabled"
+      GSS0		      "No protection"
+      GSSK		      "General Segment Write Protection or Code Protection is Enabled"
+      GWRP		      "General Segment may be written"
+      PWP		      "Not used"
+      RBS		      "No Boot RAM"
+      RSS		      "No Secure RAM"
+      SSS		      "No Secure Segment"
+      SWRP		      "Secure segment may be written"
+      WPCFG		      "Disable"
+      WPDIS		      "Disable"
+      WPEND		      "Write Protect from WPFP to the last page of memory"
+      WPFP		      "Page 127 (0x1FC00)"
+      ICESEL		      "Not used"
+      ICS		      "Communicate on PGEC1 and PGED1"
+      JTAGEN		      "Disable"
+      COE		      "Reset Into Operational Mode"
+      RES		      "Not used"
+      DEBUG		      "Not used"
+      BACKBUG		      "Not used"
+      BKBUG		      "Device resets into Operational mode"
+      ALTI2C		      "I2C mapped to SDA1/SCL1 pins"
+      ALTI2C1		      "SDA1/SCK1 pins are selected as the I/O pins for I2C1"
+      ALTI2C2		      "SDA2/SCK2 pins are selected as the I/O pins for I2C2"
+      ALTQIO		      "QEA1; QEB1; INDX1 are selected as inputs to QEI1"
+      ALTSS1		      "SS1A is selected as the I/O pin for SPI1"
+      CMPPOL0		      "Hysteresis is applied to falling edge"
+      CMPPOL1		      "Hysteresis is applied to falling edge"
+      FCANIO		      "Not used"
+      FETHIO		      "Not used"
+      FMIIEN		      "Not used"
+      FSRSSEL		      "Not used"
+      FUSBIDIO		      "Not used"
+      FVBUSONIO		      "Not used"
+      HPOL		      "Active High"
+      HYST0		      "45 mV Hysteresis"
+      HYST1		      "45 mV Hysteresis"
+      I2C1SEL		      "Use Default SCL1/SDA1 Pins For I2C1"
+      LPOL		      "Active High"
+      PWMPIN		      "Control with PORT/TRIS regs"
+      RTCOSC		      "RTCC uses Secondary Oscillator (SOSC)"
+      UPLLEN		      "Not used"
+      UPLLIDIV		      "Not used"
+      ATMOD8		      "Not used"
+      ALTPMP		      "EPMP pins are in default location mode"
+      I2C2SEL		      "I2C2 is multiplexed to SDA2/RA3 and SCL2/RA2 "
+      ALTADREF		      "AVREF+/AVREF- are mapped to RA9/RA10"
+      ALTCVREF		      "CVREF+/CVREF- are mapped to RA9/RA10"
+      PWMLOCK		      "PWM registers may be written without key sequence"
+      MCHP_TIMER_REQUEST      "{Time Step}{TS}0:2:3:1:[]:40000;"
+      MCHP_TIMER_RESULT	      "[1 39998.999999999985 ]"
+      MCHP_PLLRegisters	      "[65  78   3]"
+      MCHPVAR		      "MCHP.id = '33EP512MU810';MCHP.idN = [33  512  810];MCHP.idL = {'EP','MU',''};MCHP.Arch =3;MCHP.R"
+      "x = reshape([17   25   -1   72   93   87   90   -1   -1   -1   -1   38   24    6   76   94   88   89   -1   -1  "
+      " -1   -1   58   23    7   77   98   52   57   -1   -1   -1   -1   59   22    8   78   99   51   56   -1   -1   -"
+      "1   -1   60   21    9   81  100   49   -1   -1   -1   -1   -1   61   20   -1   82    3   50   -1   -1   -1   -1 "
+      "  -1   91   26   -1   83    4   -1   10   -1   -1   -1   -1   92   27   -1   84    5   -1   11   -1   -1   -1   "
+      "-1   -1   32   -1   68   18   53   12   -1   -1   -1   -1   28   33   -1   69   19   -1   14   -1   -1   -1   -1"
+      "   29   34   -1   70   -1   -1   -1   -1   -1   -1   -1   -1   35   -1   71   -1   -1   -1   -1   -1   -1   -1  "
+      " -1   41   63   79   -1   40   96   -1   -1   -1   -1   -1   42   73   80   -1   39   97   -1   -1   -1   -1   6"
+      "6   43   74   47   -1   -1   95   -1   -1   -1   -1   67   44   64   48   -1   -1    1   -1   -1   -1   -1],11,1"
+      "6);MCHP.RP = [-1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1 "
+      "  -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   "
+      "-1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   48"
+      "   49   50   51   52   53   54   55   -1   -1   -1   -1   -1   -1   -1   63   64   -1   66   -1   68   69   -1  "
+      " 71   -1   -1   -1   -1   -1   -1   -1   -1   80   81   82   83   84   85   -1   -1   88   -1   -1   -1   92   9"
+      "3   -1   -1   96   97   -1   -1   -1   -1  102   -1  104   -1   -1   -1   -1  109  110  111];MCHP.RPI = [-1   -1"
+      "   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1    0    1    2    3    4    5    6    7  "
+      " -1   -1   -1   -1   -1   -1   14   15   16   17   18   19   20   21   22   23   24   25   26   27   28   29   3"
+      "0   31   -1   33   34   35   36   -1   -1   -1   -1   -1   -1   -1   44   45   46   -1   -1   -1   -1   -1   -1 "
+      "  -1   -1   -1   56   57   58   59   60   61   62   -1   -1   65   -1   67   -1   -1   70   -1   72   73   -1   "
+      "-1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1   -1"
+      "   -1   -1   -1   -1   -1  103   -1  105   -1   -1  108];MCHP.PPS.reg_RPINRx = [-1  1  1  1  1 -1  1  1  1  1  1"
+      "  1  1  1  1  1  1  1  1  1  1  1 -1 -1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1 -1 -1 -1  1 -1 "
+      "-1 -1 -1 -1  1  1  1  1  1  1  1  1  1 -1  1  1  1 -1  1  1  1  1  1  1  1  1 -1  1  1  1  1  1  1  1  1 -1  1  "
+      "1  1];MCHP.RPINR_list = {'1','INT1','INT2','INT3','INT4','6','T2CK','T3CK','T4CK','T5CK','T6CK','T7CK','T8CK','T"
+      "9CK','IC1','IC2','IC3','IC4','IC5','IC6','IC7','IC8','OCFA','OCFB','FLT1','FLT2','FLT3','FLT4','QEA1','QEB1','IN"
+      "DX1','HOME1','QEA2','QEB2','INDX2','HOME2','U1RX','U1CTS','U2RX','U2CTS','SDI1','SCK1','SS1','44','SDI2','SCK2',"
+      "'SS2','48','CSDIR','CSCK','COFSIN','52','C1RX','C2RX','U3RX','U2CTS','U4RX','U4CTS','SDI3','SCK3','SS3','62','SD"
+      "I4','SCK4','SS4','66','IC9','IC10','IC11','IC12','IC13','IC14','IC15','IC16','OCFC','SYNCI1','SYNCI2','DTCMP1','"
+      "DTCMP2','DTCMP3','DTCMP4','DTCMP5','DTCMP6','DTCMP7','FLT5','FLT6','FLT7','88'};MCHP.RPOR_list = {'1','U1TX','U1"
+      "RTS','U2TX','U2RTS','SDO1','SCK1','SS1','SDO2','SCK2','SS2','CSDO','CSCK','COFS','C1TX','C2TX','OC1','OC2','OC3'"
+      ",'OC4','OC5','OC6','OC7','OC8','C1OUT','C2OUT','C3OUT','U3TX','U3RTS','U4TX','U4RTS','SDO3','SCK3','SS3','SDO4',"
+      "'SCK4','SS4','OC9','OC10','OC11','OC12','OC13','OC14','OC15','OC16','SYNCO1','SYNCO2','QEI1CCMP','QEI2CCMP','REF"
+      "CLK','C4OUT'};MCHP.PPS.map_RPnR_RPORx = [64   65   66   67   68   69   70   71   79   80   82   84   85   87   9"
+      "6   97   98   99  100  101   -1   -1  104  108  109  112  113  118  120  125  126  127];MCHP.fcy.periph = 400000"
+      "00;MCHP.TimeStepFactor = [1];MCHP.fcy.MIPS = 40000000;MCHP.TimeStep_Timer = 1;MCHP.NTIMERS = 9;MCHP.PowerSave = "
+      "[0];MCHP.DMA.Num = [15];MCHP.DMA.CNTmax = [16383];MCHP.QEI.QEICONx = [49023  49023     -1     -1     -1     -1];"
+      "MCHP.QEI.QEItype = [2];MCHP.QEI.Port_QEI_INDX = [-1 -1];MCHP.QEI.Port_QEI_QEA = [-1 -1];MCHP.QEI.Port_QEI_QEB = "
+      "[-1 -1];MCHP.QEI.Port_QEI_UPDN = [-1 -1];MCHP.ADC.ADCONx = [47103  59391  40959    263      0      0];MCHP.ADC.A"
+      "DCHS_0 = [40863   1799];MCHP.ADC.ANtype = [3  1];MCHP.ADC.Flags = [1  0];MCHP.ADC.Buffer = [16  16];MCHP.ADC.por"
+      "t = [16  17  18  19  20  21  22  23  24  25  26  27  28  29  30  31  33  34  35  36  72  73   6   7  64  65  66 "
+      " 67  68  69  70  71  -1  -1  -1  -1  -1  -1  -1  -1  -1  -1  -1  -1  -1  -1  -1  -1  -1  -1  -1  -1  -1  -1  -1 "
+      " -1  -1];MCHP.ADC.port_VrefP = [-1];MCHP.ADC.port_VrefM = [-1];MCHP.ADC.port_AVdd = [-1];MCHP.ADC.port_AVss = [-"
+      "1];MCHP.PWM_HS.Flags = [6  2  1];MCHP.PWM.port_FLT = [-1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -"
+      "1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1];MCHP.PWM.PWMRef = -1;MCHP.PWM.Flag = 0;MCHP.PWM.Port_PWM_l = [64  66  "
+      "68  70  33  35  -1  -1  -1;-1 -1 -1 -1 -1 -1 -1 -1 -1];MCHP.PWM.Port_PWM_h = [65  67  69  71  34  36  -1  -1  -1"
+      ";-1 -1 -1 -1 -1 -1 -1 -1 -1];MCHP.IC.Port = [32767  32767  32767  32767  32767  32767  32767  32767  32767  3276"
+      "7  32767  32767  32767  32767  32767  32767];MCHP.IC.type = 1;MCHP.OC.Port = [32767  32767  32767  32767  32767 "
+      " 32767  32767  32767  32767  32767  32767  32767  32767  32767  32767  32767];MCHP.OC.type = 1;MCHP.CN.Port = [-"
+      "1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1"
+      " -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 "
+      "-1 -1 -1 -1 -1 -1 -1 -1 -1 -1];MCHP.CN.PullUp = [50943  65535  61470  65535   1023  12607  62403      0      0  "
+      "    0      0];MCHP.CN.type = 1;MCHP.CN.Flag_PullDown = 1;MCHP.SPI.Refs = [1  2  3  4];MCHP.SPI.SPIxCON1 = 8191;M"
+      "CHP.SPI.SPIxCON2 = 57347;MCHP.SPI.Port_SDI = [-1  103   -1   -1];MCHP.SPI.Port_SDO = [-1  104   -1   -1];MCHP.SP"
+      "I.Port_SCK = [-1  102   -1   -1];MCHP.SPI.Port_SS = [-1 -1 -1 -1];MCHP.I2C.Refs = [1  2  0];MCHP.I2C.I2CxCON = 4"
+      "9151;MCHP.I2C.NewRegName = 1;MCHP.I2C.Port_SDA = [-1  84  -1  -1  -1];MCHP.I2C.Port_SCL = [-1  85  -1  -1  -1];M"
+      "CHP.I2C.Port_ASDA = [57   3  -1  -1  -1];MCHP.I2C.Port_ASCL = [58   2  -1  -1  -1];MCHP.I2C.Fuse_Port_SCL_SDA = "
+      "[17  18  -1  -1  -1;1  1 -1 -1 -1];MCHP.I2C.Fuse_Port_ASCL_ASDA = [17  18  -1  -1  -1;2  2 -1 -1 -1];MCHP.Comp.P"
+      "ort_CVrefin = [-1];MCHP.Comp.Port_CVref = [26];MCHP.Comp.Port_CVref1O = [-1];MCHP.Comp.Port_CVref2O = [-1];MCHP."
+      "Comp.Port_CxOUT = [32767  32767  32767     -1];MCHP.Comp.Port_OAxOUT = [-1 -1 -1 -1];MCHP.Comp.Port_CxINP = [21 "
+      " 19  55  -1];MCHP.Comp.Port_CxINM = [103   20  102;105   18  104;46  54  45;-1 -1 -1];MCHP.Comp.nComp = [3  0  0"
+      "];MCHP.Comp.OpAmp = [0];MCHP.Comp.CVRCON = [2047];MCHP.UART.port_Rx = [32767  32767  32767  32767     -1     -1]"
+      ";MCHP.UART.port_Tx = [32767  32767  32767  32767     -1     -1];MCHP.UART.port_ARx = [-1 -1];MCHP.UART.port_ATx "
+      "= [-1 -1];MCHP.UART.port_RTS = [32767  32767  32767  32767     -1     -1];MCHP.UART.port_CTS = [32767  32767  32"
+      "767  32767     -1     -1];MCHP.UART.reg_UxMODE = [48127  48127  48127  48127     -1     -1];MCHP.UART.reg_UxSTA "
+      "= [61439  61439  61439  61439     -1     -1];"
     }
     Block {
       BlockType		      SubSystem
@@ -25838,7 +26041,7 @@ Model {
 		  MaskHideContents	  off
 		  System {
 		    Name		    "Baro Altimeter"
-		    Location		    [2, 82, 1244, 871]
+		    Location		    [2, 83, 1244, 872]
 		    Open		    off
 		    ModelBrowserVisibility  on
 		    ModelBrowserWidth	    200
@@ -27487,7 +27690,7 @@ Model {
 		  MaskHideContents	  off
 		  System {
 		    Name		    "Temp Compensate Accel X1"
-		    Location		    [6, 82, 1172, 1000]
+		    Location		    [368, 162, 1534, 1080]
 		    Open		    off
 		    ModelBrowserVisibility  on
 		    ModelBrowserWidth	    200
@@ -28067,7 +28270,7 @@ Model {
 		  MaskHideContents	  off
 		  System {
 		    Name		    "Temp Compensate Baro"
-		    Location		    [6, 82, 1172, 1000]
+		    Location		    [6, 83, 1172, 1001]
 		    Open		    off
 		    ModelBrowserVisibility  on
 		    ModelBrowserWidth	    200
@@ -34772,34 +34975,44 @@ Model {
     Block {
       BlockType		      Reference
       Name		      "UART Configuration"
-      SID		      "1701"
-      Tag		      "dsPIC_config_UART"
+      SID		      "1944"
       Ports		      []
-      Position		      [95, 553, 195, 603]
-      BackgroundColor	      "lightBlue"
-      DropShadow	      on
-      Priority		      "2"
-      LibraryVersion	      "3.84"
-      SourceBlock	      "dsPICdrivers/Serial PORT/UART Configuration"
-      SourceType	      "Configure UART"
-      UART		      "1"
-      proposed_BAUD	      "38400"
-      BAUD		      "38400"
-      ALT_TX_RX		      on
-      InterruptTxWhen	      "When Transmit Buffer is empty"
-      TXInterruptPri	      "1"
-      TxBufferSize	      "32"
-      TXEN		      off
-      InterruptRxWhen	      "When a character is received"
-      RXInterruptPri	      "2"
-      RxBufferSize	      "32"
-      DoNotImplementRxInterrupt	on
-      DoNotImplementTxInterrupt	on
-      UxBRG		      "64"
-      Info		      "UxBRG = 64   ||  Real Baud : 38462   ||  % error : 0.16026  ||  max 3.8462 Bytes / Step"
-      RealBaud		      "0"
-      ERROR		      "0.16026"
-      BYTES_STEP	      "3.8462"
+      Position		      [1310, 57, 1410, 113]
+      BackgroundColor	      "gray"
+      LibraryVersion	      "3.10"
+      SourceBlock	      "MCHP_Blockset/BUS UART/UART Configuration"
+      SourceType	      "Configuration for UART peripheral"
+      UART_REF		      "1"
+      BAUD_Choice	      "Dynamic Options"
+      BAUD_Choice_TXT	      "   38400         [+0.16%]"
+      BAUD_Choice_IR	      "Dynamic Options"
+      BAUD_Choice_IR_TXT      "[]"
+      BAUD_Custom	      "115200"
+      IRDA		      off
+      ALT_IO		      on
+      PIN_RX		      "Dynamic Options"
+      PIN_RX_TXT	      "C3 / P51 / Pin[8]"
+      PIN_TX		      "Dynamic Options"
+      PIN_TX_TXT	      "D0 / P64 / Pin[72]"
+      MCHP_PORT		      "{UART1  Rx}{U1RX}3:0:P51;{UART1  Tx}{U1TX}3:1:P64;"
+      TX_IMPLEMENTATION	      "Circular Buffer"
+      TX_INT_PRIORITY	      "1"
+      TX_INT_WHEN	      "is empty"
+      TX_CIRCULAR_SIZE	      "32"
+      TX_DMA_CHANNEL	      "0   (Lowest Priority)"
+      TX_DMA_SIZE	      "[]"
+      RX_IMPLEMENTATION	      "Circular Buffer"
+      RX_INT_PRIORITY	      "2"
+      RX_INT_WHEN	      "receive 1 character"
+      RX_CIRCULAR_SIZE	      "32"
+      InitSequence_chkbox     off
+      BAUD_Choice_InitSeq     "Dynamic Options"
+      BAUD_Choice_InitSeq_TXT "0"
+      BAUD_Choice_IR_InitSeq  "Dynamic Options"
+      BAUD_Choice_IR_InitSeq_TXT "0"
+      BAUD_Custom_InitSeq     "0"
+      InitSequence	      "'Hello World'"
+      MCHP_MASTERLINK	      "intgratedMCUSlugs_ver2/Microchip Master"
     }
     Block {
       BlockType		      SubSystem
@@ -34816,7 +35029,7 @@ Model {
       MaskHideContents	      off
       System {
 	Name			"Update  States"
-	Location		[468, 302, 1255, 794]
+	Location		[792, 146, 1579, 615]
 	Open			off
 	ModelBrowserVisibility	on
 	ModelBrowserWidth	200
@@ -34839,40 +35052,29 @@ Model {
 	}
 	Block {
 	  BlockType		  Reference
-	  Name			  "GS Messages \nParser/Decoder\n[mavlinkCommsControlMcu.c]"
-	  SID			  "534"
-	  Tag			  "dsPIC_dsPIC_CFunctionCall"
+	  Name			  "Initialize Sensor MCU\n[interProcCommMaster.c]"
+	  SID			  "1945"
 	  Ports			  [1, 1]
-	  Position		  [330, 165, 500, 215]
+	  Position		  [325, 163, 490, 217]
 	  BackgroundColor	  "orange"
-	  LibraryVersion	  "3.84"
-	  SourceBlock		  "dsPICdrivers/OTHERS/C Function Call"
+	  LibraryVersion	  "3.10"
+	  SourceBlock		  "MCHP_Blockset/User Functions/C Function Call"
 	  SourceType		  "C Function Call"
-	  FctUpdate		  "Output Function"
-	  fctName		  "'protDecodeMavlink'"
-	  INPUT_SIZE		  "202"
-	  INPUT1		  "uint8"
-	  INPUT2		  "--"
-	  INPUT3		  "--"
-	  OUTPUT_SIZE		  "1"
-	  OUTPUT1		  "--"
+	  ListFunctions1	  "     void protDecodeMavlink(uint8_t* dataIn)"
+	  Function1		  "void protDecodeMavlink(uint8_t* dataIn)"
+	  Function1Type		  "when block is updated (default)"
+	  AddHeaderDeclaration	  on
+	  Fct1BlockIn		  "dataIn"
+	  S_INPUT		  "[3]"
+	  S_OUTPUT		  "[]"
+	  S_INPUT_Size		  "[-1]"
+	  S_OUTPUT_Size		  "[]"
+	  ORDERING		  "Output"
 	  SampleTime		  "-1"
-	  InputType		  "[ 2 ]"
-	  OutputType		  "[ ]"
-	  FctDeclaration	  "extern void protDecodeMavlink(uint8_T* u1);"
-	  FctCall		  "protDecodeMavlink(*%u1);"
-	  OrderingInOutPopup	  "Output"
-	  FctStart		  "None"
-	  FctStart_Name		  "Init_onlyOnce"
-	  FctStart_Declaration	  "inline extern void Init_onlyOnce();"
-	  FctStart_Call		  "Init_onlyOnce();"
-	  FctInit		  "None"
-	  FctInit_Name		  "Init_Reset"
-	  FctInit_Declaration	  "inline extern void Init_Reset();"
-	  FctInit_Call		  "Init_Reset();"
+	  MCHP_MASTERLINK	  "intgratedMCUSlugs_ver2/Microchip Master"
 	  PinDigitalInput	  "[]"
-	  PinDigitalOutput	  "[]"
-	  AnalogueInput		  "[]"
+	  PinDigitalOutput	  "[]   "
+	  PinAnalogInput	  "[]"
 	}
 	Block {
 	  BlockType		  Outport
@@ -34886,13 +35088,13 @@ Model {
 	  SrcBlock		  "GS"
 	  SrcPort		  1
 	  Points		  [15, 0; 0, 40]
-	  DstBlock		  "GS Messages \nParser/Decoder\n[mavlinkCommsControlMcu.c]"
+	  DstBlock		  "Initialize Sensor MCU\n[interProcCommMaster.c]"
 	  DstPort		  1
 	}
 	Line {
-	  SrcBlock		  "GS Messages \nParser/Decoder\n[mavlinkCommsControlMcu.c]"
+	  SrcBlock		  "Initialize Sensor MCU\n[interProcCommMaster.c]"
 	  SrcPort		  1
-	  Points		  [0, -120]
+	  Points		  [10, 0; 0, -120]
 	  DstBlock		  "$"
 	  DstPort		  1
 	}
@@ -45905,8 +46107,6 @@ Stateflow {
     firstJunction	    319
     viewObj		    317
     machine		    1
-    subviewS {
-    }
     ssIdHighWaterMark	    7
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
@@ -48344,8 +48544,6 @@ Stateflow {
     firstJunction	    452
     viewObj		    450
     machine		    1
-    subviewS {
-    }
     ssIdHighWaterMark	    4
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
@@ -48453,8 +48651,6 @@ Stateflow {
     firstJunction	    458
     viewObj		    456
     machine		    1
-    subviewS {
-    }
     ssIdHighWaterMark	    7
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
@@ -48623,8 +48819,6 @@ Stateflow {
     firstJunction	    467
     viewObj		    465
     machine		    1
-    subviewS {
-    }
     ssIdHighWaterMark	    7
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
@@ -48793,8 +48987,6 @@ Stateflow {
     firstJunction	    476
     viewObj		    474
     machine		    1
-    subviewS {
-    }
     ssIdHighWaterMark	    7
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
@@ -48963,8 +49155,6 @@ Stateflow {
     firstJunction	    485
     viewObj		    483
     machine		    1
-    subviewS {
-    }
     ssIdHighWaterMark	    7
     decomposition	    CLUSTER_CHART
     type		    EML_CHART
